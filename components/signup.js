@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import "../app/styles/Signup.css"; // Ensure correct CSS path
+import "../app/styles/Signup.css"; 
 
 export default function Signup() {
   const [username, setUsername] = useState("");
