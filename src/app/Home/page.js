@@ -1,3 +1,4 @@
+"use client";  // 👈 Add this at the top
 import { Suspense } from "react";
 import Home from "@/components/Home";
 

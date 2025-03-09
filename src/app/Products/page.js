@@ -1,5 +1,7 @@
-import Products from "@/components/Products";
+"use client";  
+
 import { Suspense } from "react";
+import Products from "@/components/Products";
 
 export default function ProductsPage() {
   return (

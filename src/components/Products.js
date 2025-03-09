@@ -1,4 +1,5 @@
 "use client";
+
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -7,40 +8,46 @@ import "../app/styles/Products.css";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]); 
+  const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
-  const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("q") || "";
+  const [searchQuery, setSearchQuery] = useState("");
   const fallbackImage = "/image/tshirt.webp";
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // Update search query when URL changes
+    setSearchQuery(searchParams.get("q") || "");
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      if (!searchQuery) return; // Prevent unnecessary requests
+
       try {
+        setLoading(true);
         const response = await fetch("http://localhost:5000/api/products/chats", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: searchQuery }),
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
+        if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
-        console.log(data);
-        if (data && Array.isArray(data)) {
-          const processedProducts = data.map((product) => ({
-            id: product._id,
-            Title: product.Title || "No Title Available",
-            Body: product.Body || "No description available",
-            ImageSrc: product["Image Src"] || fallbackImage,
-            Price: product["Variant Price"] || "Price Not Available",
-            Type: product.Type || "N/A",
-          }));
-          setProducts(processedProducts);
+
+        if (Array.isArray(data)) {
+          setProducts(
+            data.map((product) => ({
+              id: product._id,
+              Title: product.Title || "No Title Available",
+              Body: product.Body || "No description available",
+              ImageSrc: product["Image Src"] || fallbackImage,
+              Price: product["Variant Price"] || "Price Not Available",
+              Type: product.Type || "N/A",
+            }))
+          );
         } else {
           setProducts([]);
         }
@@ -51,12 +58,13 @@ const Products = () => {
       }
     };
 
+    fetchProducts();
+  }, [searchQuery]);
+
+  useEffect(() => {
     const fetchCartItems = async () => {
       const token = Cookies.get("token");
-      if (!token) {
-        console.error("No token found! Redirecting to login...");
-        return;
-      }
+      if (!token) return;
 
       try {
         const response = await fetch("http://localhost:5000/api/cart", {
@@ -67,19 +75,14 @@ const Products = () => {
           },
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch cart items");
-        }
-
+        if (!response.ok) throw new Error("Failed to fetch cart items");
         const data = await response.json();
         setCartItems(data.cart || []);
       } catch (err) {
-        console.error("Error fetching cart items:", err);
         setError("Failed to fetch cart items.");
       }
     };
 
-    fetchProducts();
     fetchCartItems();
   }, []);
 
@@ -97,7 +100,7 @@ const Products = () => {
     };
 
     const token = Cookies.get("token");
-    console.log(token);
+    if (!token) return setError("User not authenticated!");
 
     try {
       const response = await fetch("http://localhost:5000/api/cart", {
@@ -109,22 +112,14 @@ const Products = () => {
         body: JSON.stringify(cartItem),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to add item to cart");
-      }
+      if (!response.ok) throw new Error("Failed to add item to cart");
 
       setSuccessMessage("Item added successfully!");
       setTimeout(() => setSuccessMessage(""), 1500);
     } catch (err) {
-      console.error("Error:", err);
       setError("Failed to add item to cart. Please try again.");
     }
   };
-
-  const filteredProducts = products.filter((product) =>
-    product.Title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const handleImageError = (e) => {
     e.target.src = fallbackImage;
@@ -170,17 +165,13 @@ const Products = () => {
                     </p>
                     <div className="homeTypePrice">
                       <p className="homeType">
-                        <strong>Type:</strong>{" "}
-                        <span className="boldText">{product.Type}</span>
+                        <strong>Type:</strong> <span className="boldText">{product.Type}</span>
                       </p>
                       <p className="homeProductPrice">
                         <span className="priceText">$ {product.Price}</span>
                       </p>
                     </div>
-                    <button
-                      className="homeButton"
-                      onClick={() => addToCart(product)}
-                    >
+                    <button className="homeButton" onClick={() => addToCart(product)}>
                       Add to Cart
                     </button>
                   </div>
@@ -189,7 +180,7 @@ const Products = () => {
             ) : (
               <p>No matching products found.</p>
             )}
-          
+
             <div className="checkoutContainer">
               <button className="proceedCheckout">Proceed to Checkout</button>
             </div>
