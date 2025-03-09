@@ -1,0 +1,172 @@
+.karini-page-container {
+  background: url("/image/loginbg.jpg") no-repeat center center/cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 20px;
+}
+
+
+.karini-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #ffcc00;
+  text-shadow: 
+      4px 4px 10px rgba(0, 0, 0, 0.8), 
+      2px 2px 6px rgba(255, 204, 0, 0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: -100px;
+  display: inline-block;
+  text-align: center;
+}
+
+.login-input{
+  color: black;
+}
+
+.karini-forms-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  max-width: 1100px;
+  gap: 80px;
+  position: relative;
+  top: -20px;
+  margin-top: 20px;
+}
+
+
+.karini-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+  width: 45%;
+}
+
+
+.karini-signup-box {
+  max-width: 380px;
+}
+
+.karini-login-box {
+  max-width: 320px;
+}
+
+
+.karini-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 10px;
+}
+
+
+.karini-input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: black;
+ 
+}
+
+.karini-input::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+
+.karini-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.karini-button:hover {
+  background-color: #e68a00;
+}
+
+
+@media (max-width: 1024px) {
+  .karini-title {
+      font-size: 36px;
+  }
+
+  .karini-forms-container {
+      gap: 50px;
+      top: -15px;
+  }
+
+  .karini-box {
+      width: 48%;
+  }
+}
+
+@media (max-width: 768px) {
+  .karini-title {
+      font-size: 32px;
+      margin-top: -80px;
+  }
+
+  .karini-forms-container {
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      width: 90%;
+      top: -10px;
+  }
+
+  .karini-box {
+      width: 90%;
+      max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .karini-title {
+      font-size: 28px;
+      margin-top: -60px;
+      letter-spacing: 1px;
+  }
+
+  .karini-box {
+      width: 95%;
+      padding: 1.5rem;
+  }
+
+  .karini-header {
+      font-size: 20px;
+  }
+
+  .karini-input {
+      padding: 10px;
+  }
+
+  .karini-button {
+      padding: 10px;
+      font-size: 15px;
+  }
+}

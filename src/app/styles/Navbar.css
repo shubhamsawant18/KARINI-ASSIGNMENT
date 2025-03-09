@@ -1,0 +1,193 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  position: relative;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+
+.search-bar {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  font-size: 1rem;
+  background-color: white;
+  color: black;
+}
+
+.search-bar input::placeholder {
+  color: #888;
+}
+
+.search-bar button {
+  background-color: #f9f9f9;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-links li a:hover {
+  color: #f4a261;
+}
+
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-buttons .login-btn,
+.auth-buttons .signup-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-btn:hover {
+  background-color: #218838;
+}
+
+.logout-btn {
+  background-color: red;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background-color: darkred;
+}
+
+
+
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+}
+
+
+@media (max-width: 1024px) {
+  .search-bar input {
+      width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+      gap: 15px;
+  }
+
+  .search-bar {
+      width: 100%;
+      justify-content: center;
+  }
+
+  .search-bar input {
+      width: 80%;
+  }
+
+
+  .menu-toggle {
+      display: block;
+  }
+
+ 
+  .nav-section {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #444;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      padding: 10px 0;
+      text-align: center;
+  }
+
+  .nav-section.open {
+      display: flex;
+  }
+
+  .nav-links {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .auth-buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+  }
+}
